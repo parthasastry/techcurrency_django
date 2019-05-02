@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Listings -->
+<section id="listings" class="py-4">
+    <div class="container">
+        <a href="{% url 'technologies' %}" class="btn btn-light mb-4">Back To Technologies</a>
+        <div class="row">
+            {% if tech %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Software</th>
+                        <th>Stack</th>
+                        <th>End of Support</th>
+                        <th>Disposition</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                {% for t in tech %}
+                <tr>
+                    <td>{{ t.software }}</td>
+                    <td>{{ t.softwaretype }}</td>
+                    <td>{{ t.endofsupport }}</td>
+                    {% if t.disposition == 'Obsolete' %}
+                        <td class="text-danger">{{ t.disposition }}</td>
+                    {% else %}
+                        <td class="text-success">{{ t.disposition }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <div class="col-md-1">
+                <p>No Technologies Available</p>
+            </div>
+            {% endif%}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
